@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DownloadWithProgress.Model
 {
-    class ProgressEventArgs
+    public class DownloadCompletedEventArgs : EventArgs
     {
     }
 }

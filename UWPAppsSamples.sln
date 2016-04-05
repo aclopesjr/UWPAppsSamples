@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25029.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackgroundDownloadSample", "BackgroundDownloadSample\BackgroundDownloadSample.csproj", "{115F8EF2-FBC2-41A4-93DB-E8EB5038BFEA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DownloadWithProgress", "DownloadWithProgress\DownloadWithProgress.csproj", "{066BE059-3CC1-41CC-81C5-CAC4742BBB96}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsyncCommandSample", "AsyncCommandSample\AsyncCommandSample.csproj", "{87176233-AE66-4825-BF77-F61D8B54985D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,6 +55,24 @@ Global
 		{066BE059-3CC1-41CC-81C5-CAC4742BBB96}.Release|x86.ActiveCfg = Release|x86
 		{066BE059-3CC1-41CC-81C5-CAC4742BBB96}.Release|x86.Build.0 = Release|x86
 		{066BE059-3CC1-41CC-81C5-CAC4742BBB96}.Release|x86.Deploy.0 = Release|x86
+		{87176233-AE66-4825-BF77-F61D8B54985D}.Debug|ARM.ActiveCfg = Debug|ARM
+		{87176233-AE66-4825-BF77-F61D8B54985D}.Debug|ARM.Build.0 = Debug|ARM
+		{87176233-AE66-4825-BF77-F61D8B54985D}.Debug|ARM.Deploy.0 = Debug|ARM
+		{87176233-AE66-4825-BF77-F61D8B54985D}.Debug|x64.ActiveCfg = Debug|x64
+		{87176233-AE66-4825-BF77-F61D8B54985D}.Debug|x64.Build.0 = Debug|x64
+		{87176233-AE66-4825-BF77-F61D8B54985D}.Debug|x64.Deploy.0 = Debug|x64
+		{87176233-AE66-4825-BF77-F61D8B54985D}.Debug|x86.ActiveCfg = Debug|x86
+		{87176233-AE66-4825-BF77-F61D8B54985D}.Debug|x86.Build.0 = Debug|x86
+		{87176233-AE66-4825-BF77-F61D8B54985D}.Debug|x86.Deploy.0 = Debug|x86
+		{87176233-AE66-4825-BF77-F61D8B54985D}.Release|ARM.ActiveCfg = Release|ARM
+		{87176233-AE66-4825-BF77-F61D8B54985D}.Release|ARM.Build.0 = Release|ARM
+		{87176233-AE66-4825-BF77-F61D8B54985D}.Release|ARM.Deploy.0 = Release|ARM
+		{87176233-AE66-4825-BF77-F61D8B54985D}.Release|x64.ActiveCfg = Release|x64
+		{87176233-AE66-4825-BF77-F61D8B54985D}.Release|x64.Build.0 = Release|x64
+		{87176233-AE66-4825-BF77-F61D8B54985D}.Release|x64.Deploy.0 = Release|x64
+		{87176233-AE66-4825-BF77-F61D8B54985D}.Release|x86.ActiveCfg = Release|x86
+		{87176233-AE66-4825-BF77-F61D8B54985D}.Release|x86.Build.0 = Release|x86
+		{87176233-AE66-4825-BF77-F61D8B54985D}.Release|x86.Deploy.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,87 +1,77 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Linq;
-using System.Net.Http;
 using System.Runtime.InteropServices.WindowsRuntime;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Windows.Foundation;
+using Windows.Security.Credentials;
+using Windows.Web.Http;
+using Windows.Web.Http.Filters;
 
 namespace DownloadWithProgress.Model
 {
     public static class Download
     {
-        static Download()
-        {
-            queueOfDownloads.CollectionChanged += QueueOfDownloads_CollectionChanged;
-        }
+        //public static IAsyncOperationWithProgress<DownloadFileInfo, DownloadProgressChangedEventArgs>
+        //    GetFileWithProgressAsync(this HttpClient httpClient, HttpRequestMessage request,
+        //    CancellationToken cancellationToken, DownloadFileInfo downloadInfo)
+        //{
+        //    var operation = httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
+        //    return AsyncInfo.Run<DownloadFileInfo, DownloadProgressChangedEventArgs>( async (token, progress) =>
+        //    {
+        //        if (cancellationToken != CancellationToken.None)
+        //            token = cancellationToken;
 
-        public static IAsyncOperationWithProgress<string, CustomProgressChangedEventArgs> GetFileWithProgressAsync(this HttpClient httpClient,
-            HttpRequestMessage request, CancellationToken cancellationToken, DownloadFileInfo downloadInfo)
-        {
-            var operation = httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
-            return AsyncInfo.Run<string, CustomProgressChangedEventArgs>( async (token, progress) =>
-            {
-                if (cancellationToken != CancellationToken.None)
-                    token = cancellationToken;
+        //        cancellationToken.ThrowIfCancellationRequested();
 
-                cancellationToken.ThrowIfCancellationRequested();
+        //        return await GetStringTaskProviderAsync(operation, cancellationToken, progress,  downloadInfo);
+        //    });
+        //}
 
-                return await GetStringTaskProviderAsync(operation, cancellationToken, progress, downloadInfo);
-            });
-        }
+        //public static async Task<DownloadFileInfo>
+        //    GetStringTaskProviderAsync(Task<HttpResponseMessage> httpOperation, CancellationToken cancellationToken,
+        //    IProgress<DownloadProgressChangedEventArgs> progressCallback, DownloadFileInfo downloadInfo)
+        //{
+        //    int bytesToReceive = 0;
+        //    int bytesReceived = 0;
+        //    double progressPercentage = 0;
 
-        public static async Task<string> GetStringTaskProviderAsync(Task<HttpResponseMessage> httpOperation,
-            CancellationToken cancellationToken,
-            IProgress<CustomProgressChangedEventArgs> progressCallback,
-            DownloadFileInfo downloadInfo)
-        {
-            string result = string.Empty;
+        //    var bufferRead = new byte[0];
+        //    var responseBuffer = new byte[100];
+        //    var httpInitialResponse = await httpOperation;
+        //    using (var responseStream = await httpInitialResponse.Content.ReadAsStreamAsync())
+        //    {
+        //        bytesToReceive = int.Parse(httpInitialResponse.Content.Headers.First(h => h.Key.Equals("Content-Length")).Value.First());
 
-            int bytesToReceive = 0;
-            int bytesReceived = 0;
-            double progressPercentage = 0;
+        //        int read;
+        //        do
+        //        {
+        //            read = await responseStream.ReadAsync(responseBuffer, 0, responseBuffer.Length);
+        //            bytesReceived += read;
 
-            var responseBuffer = new byte[100];
-            var httpInitialResponse = await httpOperation;
-            using (var responseStream = await httpInitialResponse.Content.ReadAsStreamAsync())
-            {
-                bytesToReceive = int.Parse(httpInitialResponse.Content.Headers.First(h => h.Key.Equals("Content-Length")).Value.First());
+        //            Array.Resize(ref bufferRead, bytesReceived);
+        //            bufferRead.Concat(responseBuffer);
 
-                int read;
-                do
-                {
-                    read = await responseStream.ReadAsync(responseBuffer, 0, responseBuffer.Length);
-                    result += Encoding.UTF8.GetString(responseBuffer, 0, read);
-                    bytesReceived += read;
+        //            if (bytesToReceive > 0)
+        //                progressPercentage = ((double)bytesReceived / (double)bytesToReceive) * 100;
 
-                    if (bytesToReceive > 0)
-                        progressPercentage = ((double)bytesReceived / (double)bytesToReceive) * 100;
+        //            progressCallback.Report(new DownloadProgressChangedEventArgs(bytesReceived, bytesToReceive, (int)progressPercentage));
 
-                    progressCallback.Report(new CustomProgressChangedEventArgs(bytesReceived, bytesToReceive, (int)progressPercentage));
+        //        } while (read != 0);
 
-                } while (read != 0);
-            }
-            return result;
-        }
+        //    }
+        //    return downloadInfo;
+        //}
 
-        private static ObservableCollection<DownloadFileInfo> queueOfDownloads { get; set; } = new ObservableCollection<DownloadFileInfo>();
+        private static Queue<DownloadFileInfo> queueOfDownloads { get; set; } = new Queue<DownloadFileInfo>();
 
         public static void EnqueueDownload(DownloadFileInfo downloadInfo)
         {
-            queueOfDownloads.Add(downloadInfo);
-        }
+            queueOfDownloads.Enqueue(downloadInfo);
 
-        private static void QueueOfDownloads_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            if (e.Action.Equals(NotifyCollectionChangedAction.Add))
-            {
-                Task.Run(() => StartDownloadAsync());
-            }
+            Task.Run(() => StartDownloadAsync());
         }
 
         private static async Task StartDownloadAsync()
@@ -89,29 +79,50 @@ namespace DownloadWithProgress.Model
             if (queueOfDownloads.Count == 0)
                 return;
 
+            //HttpBaseProtocolFilter baseFilter = new HttpBaseProtocolFilter();
+            //baseFilter.CacheControl.WriteBehavior = HttpCacheWriteBehavior.NoCache;
+
             using (var httpClient = new HttpClient())
             {
-                foreach (var download in queueOfDownloads)
+                do
                 {
                     try
                     {
-                        using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, download.AbsoluteUri))
-                        {
-                            var cancellationToken = new CancellationToken();
-                            var operationWithProgress = httpClient.GetFileWithProgressAsync(request, cancellationToken, download);
-                            operationWithProgress.Progress = (result, progress) =>
-                            {
-                                download.ProgressAction(progress);
-                            };
+                        var download = queueOfDownloads.Peek();
 
-                            await operationWithProgress;
+                        var progressTask = httpClient.GetAsync(download.AbsoluteUri);
+
+                        progressTask.Progress = (result, progress) =>
+                        {
+                            double progressPercentage = 0;
+                            if (progress.TotalBytesToReceive > 0)
+                                progressPercentage = ((double)progress.BytesReceived / (double)progress.TotalBytesToReceive) * 100;
+
+                            DownloadProgressChangedEventArgs args = new DownloadProgressChangedEventArgs(progress.BytesReceived,
+                                progress.TotalBytesToReceive, progressPercentage);
+
+                            download.OnDownloadProgressChanged(args);
+                        };
+
+                        var downloadResult = await progressTask;
+
+                        if (downloadResult.IsSuccessStatusCode)
+                        {
+                            var ccc = await downloadResult.Content.ReadAsBufferAsync();
+
+                            download.OnDownloadCompleted(new DownloadCompletedEventArgs());
                         }
+                        else
+                            download.OnDonwloadError(new DownloadErrorEventArgs());
+
+                        queueOfDownloads.Dequeue();
                     }
                     catch (Exception e)
                     {
                         Debug.WriteLine(e.Message);
                     }
-                }
+
+                } while (queueOfDownloads.Count > 0);
             }
         }
     }

@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProjectGuid>{066BE059-3CC1-41CC-81C5-CAC4742BBB96}</ProjectGuid>
+    <ProjectGuid>{87176233-AE66-4825-BF77-F61D8B54985D}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DownloadWithProgress</RootNamespace>
-    <AssemblyName>DownloadWithProgress</AssemblyName>
+    <RootNamespace>AsyncCommandSample</RootNamespace>
+    <AssemblyName>AsyncCommandSample</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.10240.0</TargetPlatformVersion>
@@ -16,7 +16,7 @@
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <PackageCertificateKeyFile>DownloadWithProgress_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateKeyFile>AsyncCommandSample_TemporaryKey.pfx</PackageCertificateKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -98,25 +98,22 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Model\BaseModel.cs" />
-    <Compile Include="Model\DownloadFilter.cs" />
-    <Compile Include="Model\EventArgs\DownloadErrorEventArgs.cs" />
-    <Compile Include="Model\EventArgs\DownloadProgressEventArgs.cs" />
-    <Compile Include="Model\Download.cs" />
-    <Compile Include="Model\EventArgs\DownloadCompletedEventArgs.cs" />
-    <Compile Include="Model\DownloadFileInfo.cs" />
-    <Compile Include="Commands\ProtocolCommand.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModel\DownloadViewModel.cs" />
-    <Compile Include="View\DownloadView.xaml.cs">
-      <DependentUpon>DownloadView.xaml</DependentUpon>
+    <Compile Include="Commands\AsyncBaseCommand.cs" />
+    <Compile Include="Commands\AsyncCommand.cs" />
+    <Compile Include="Commands\IAsyncCommand.cs" />
+    <Compile Include="View\MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\BaseModel.cs" />
+    <Compile Include="Model\Service.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\MainPageViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
-    <None Include="DownloadWithProgress_TemporaryKey.pfx" />
+    <None Include="AsyncCommandSample_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Properties\Default.rd.xml" />
@@ -133,13 +130,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="View\DownloadView.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="View\MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
