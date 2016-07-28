@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackgroundDownloadSample", "BackgroundDownloadSample\BackgroundDownloadSample.csproj", "{115F8EF2-FBC2-41A4-93DB-E8EB5038BFEA}"
 EndProject
@@ -10,6 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsyncCommandSample", "AsyncCommandSample\AsyncCommandSample.csproj", "{87176233-AE66-4825-BF77-F61D8B54985D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsonConverterSample", "JsonConverterSample\JsonConverterSample.csproj", "{C19F477F-F9D3-449F-AA1B-FBC71E9666D0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwipeControlSample", "SwipeControlSample\SwipeControlSample.csproj", "{84B7DC71-EA34-4C5E-B4D4-E3CB44F7A68F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -93,6 +95,24 @@ Global
 		{C19F477F-F9D3-449F-AA1B-FBC71E9666D0}.Release|x86.ActiveCfg = Release|x86
 		{C19F477F-F9D3-449F-AA1B-FBC71E9666D0}.Release|x86.Build.0 = Release|x86
 		{C19F477F-F9D3-449F-AA1B-FBC71E9666D0}.Release|x86.Deploy.0 = Release|x86
+		{84B7DC71-EA34-4C5E-B4D4-E3CB44F7A68F}.Debug|ARM.ActiveCfg = Debug|ARM
+		{84B7DC71-EA34-4C5E-B4D4-E3CB44F7A68F}.Debug|ARM.Build.0 = Debug|ARM
+		{84B7DC71-EA34-4C5E-B4D4-E3CB44F7A68F}.Debug|ARM.Deploy.0 = Debug|ARM
+		{84B7DC71-EA34-4C5E-B4D4-E3CB44F7A68F}.Debug|x64.ActiveCfg = Debug|x64
+		{84B7DC71-EA34-4C5E-B4D4-E3CB44F7A68F}.Debug|x64.Build.0 = Debug|x64
+		{84B7DC71-EA34-4C5E-B4D4-E3CB44F7A68F}.Debug|x64.Deploy.0 = Debug|x64
+		{84B7DC71-EA34-4C5E-B4D4-E3CB44F7A68F}.Debug|x86.ActiveCfg = Debug|x86
+		{84B7DC71-EA34-4C5E-B4D4-E3CB44F7A68F}.Debug|x86.Build.0 = Debug|x86
+		{84B7DC71-EA34-4C5E-B4D4-E3CB44F7A68F}.Debug|x86.Deploy.0 = Debug|x86
+		{84B7DC71-EA34-4C5E-B4D4-E3CB44F7A68F}.Release|ARM.ActiveCfg = Release|ARM
+		{84B7DC71-EA34-4C5E-B4D4-E3CB44F7A68F}.Release|ARM.Build.0 = Release|ARM
+		{84B7DC71-EA34-4C5E-B4D4-E3CB44F7A68F}.Release|ARM.Deploy.0 = Release|ARM
+		{84B7DC71-EA34-4C5E-B4D4-E3CB44F7A68F}.Release|x64.ActiveCfg = Release|x64
+		{84B7DC71-EA34-4C5E-B4D4-E3CB44F7A68F}.Release|x64.Build.0 = Release|x64
+		{84B7DC71-EA34-4C5E-B4D4-E3CB44F7A68F}.Release|x64.Deploy.0 = Release|x64
+		{84B7DC71-EA34-4C5E-B4D4-E3CB44F7A68F}.Release|x86.ActiveCfg = Release|x86
+		{84B7DC71-EA34-4C5E-B4D4-E3CB44F7A68F}.Release|x86.Build.0 = Release|x86
+		{84B7DC71-EA34-4C5E-B4D4-E3CB44F7A68F}.Release|x86.Deploy.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
